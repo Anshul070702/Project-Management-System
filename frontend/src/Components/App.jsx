@@ -278,13 +278,13 @@ const App = () => {
             <div className="w-full flex justify-between items-center">
               <button
                 onClick={() => handleFilterTasks("pending")}
-                className="h-10 w-32 bg-orange-500 text-white p-2 rounded mb-2"
+                className="h-10 w-32 bg-yellow-500 text-white p-2 rounded mb-2"
               >
                 Pending
               </button>
               <button
                 onClick={() => handleFilterTasks("in-progress")}
-                className="h-10 w-32 bg-yellow-500 text-white p-2 rounded mb-2"
+                className="h-10 w-32 bg-orange-500 text-white p-2 rounded mb-2"
               >
                 In-Progress
               </button>
@@ -424,9 +424,15 @@ const App = () => {
               <div className="text-center mx-1">
                 <p className="text-gray-400 my-2">Completed</p>
                 <CircularProgressbar
-                  value={(statusCounts.completed / allTodos.length) * 100}
-                  text={`${Math.round(
-                    (statusCounts.completed / allTodos.length) * 100
+                  value={Math.max(
+                    (statusCounts.completed / allTodos.length) * 100,
+                    Math.min(
+                      0,
+                      (statusCounts.completed / allTodos.length) * 100
+                    )
+                  )}
+                  text={`${Math.max(
+                    Math.round((statusCounts.completed / allTodos.length) * 100)
                   )}%`}
                   styles={buildStyles({
                     textColor: "#34d399",
